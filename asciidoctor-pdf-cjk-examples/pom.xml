@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.life888888.lab</groupId>
+    <artifactId>jpdfbookmarks-test-pdf-examples</artifactId>
+    <version>1.0.0</version>
+  </parent>
+  <artifactId>asciidoctor-pdf-cjk-examples</artifactId>
+  <name>Asciidoctor PDF CJK Maven example PDF</name>
+  <description>An example project that demonstrates how to convert AsciiDoc to PDF using CJK resources (https://github.com/chloerei/asciidoctor-pdf-cjk) to properly show CJK (Chinese, Japanese and Korean) characters.</description>
+  <!-- Download CJK Fonts and Themes -->
+  <dependencies>
+    <dependency>
+      <groupId>com.life888888.lab</groupId>
+      <artifactId>asciidoctor-pdf-cjk-resources</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <defaultGoal>process-resources</defaultGoal>
+    <plugins>
+      <plugin>
+        <groupId>org.asciidoctor</groupId>
+        <artifactId>asciidoctor-maven-plugin</artifactId>
+        <configuration>
+          <outputDirectory>${project.build.directory}/${pdf.out.dir}</outputDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <id>generate-pdf-cjk-zh_CN-doc</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>process-asciidoc</goal>
+            </goals>
+            <configuration>
+              <backend>pdf</backend>
+              <sourceDirectory>src/docs/asciidoc</sourceDirectory>
+              <sourceDocumentName>README-zh_CN.adoc</sourceDocumentName>
+              <attributes>
+                <imagesdir>images</imagesdir>
+                <source-highlighter>coderay</source-highlighter>
+                <allow-uri-read/>
+                <icons>font</icons>
+                <pagenums/>
+                <toc/>
+                <idprefix/>
+                <idseparator>-</idseparator>
+                <!-- Fixes line wraps formatting inserting zero-width spaces (ZWSP) before CJ characters -->
+                <scripts>cjk</scripts>
+                <!-- Set KaiGen Gothic Chinese theme -->
+                <pdf-style>KaiGenGothicCN</pdf-style>
+                <pdf-stylesdir>${pdf.cjk.kaigen.download.dir}/themes</pdf-stylesdir>
+                <pdf-fontsdir>${pdf.cjk.kaigen.download.dir}/fonts</pdf-fontsdir>
+                <!-- compress reduce pdf size -->
+                <compress>${pdf.compress}</compress>
+                <!-- DISABLE INCLUDE CHANGELOG.adoc -->
+                <env-site>${pdf.env.site}</env-site>
+              </attributes>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-pdf-cjk-JP-doc</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>process-asciidoc</goal>
+            </goals>
+            <configuration>
+              <backend>pdf</backend>
+              <sourceDirectory>src/docs/asciidoc</sourceDirectory>
+              <sourceDocumentName>README-jp.adoc</sourceDocumentName>
+              <attributes>
+                <imagesdir>images</imagesdir>
+                <source-highlighter>coderay</source-highlighter>
+                <allow-uri-read/>
+                <icons>font</icons>
+                <pagenums/>
+                <toc/>
+                <idprefix/>
+                <idseparator>-</idseparator>
+                <!-- Fixes line wraps formatting inserting zero-width spaces (ZWSP) before CJ characters -->
+                <scripts>cjk</scripts>
+                <!-- Set KaiGen Gothic Japanese theme -->
+                <pdf-style>KaiGenGothicJP</pdf-style>
+                <pdf-stylesdir>${pdf.cjk.kaigen.download.dir}/themes</pdf-stylesdir>
+                <pdf-fontsdir>${pdf.cjk.kaigen.download.dir}/fonts</pdf-fontsdir>
+                <!-- compress reduce pdf size -->
+                <compress>${pdf.compress}</compress>
+                <!-- DISABLE INCLUDE CHANGELOG.adoc -->
+                <env-site>${pdf.env.site}</env-site>
+              </attributes>
+            </configuration>
+          </execution>
+          <!-- 20220224 zh_TW -->
+          <execution>
+            <id>generate-pdf-cjk-zh_TW-doc</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>process-asciidoc</goal>
+            </goals>
+            <configuration>
+              <backend>pdf</backend>
+              <sourceDirectory>src/docs/asciidoc</sourceDirectory>
+              <sourceDocumentName>README-zh_TW.adoc</sourceDocumentName>
+              <attributes>
+                <imagesdir>images</imagesdir>
+                <source-highlighter>coderay</source-highlighter>
+                <allow-uri-read/>
+                <icons>font</icons>
+                <pagenums/>
+                <toc/>
+                <idprefix/>
+                <idseparator>-</idseparator>
+                <!-- Fixes line wraps formatting inserting zero-width spaces (ZWSP) before CJ characters -->
+                <scripts>cjk</scripts>
+                <!-- Set KaiGen Gothic Chinese theme -->
+                <pdf-style>KaiGenGothicTW</pdf-style>
+                <pdf-stylesdir>${pdf.cjk.kaigen.download.dir}/themes</pdf-stylesdir>
+                <pdf-fontsdir>${pdf.cjk.kaigen.download.dir}/fonts</pdf-fontsdir>
+                <!-- compress reduce pdf size -->
+                <compress>${pdf.compress}</compress>
+                <!-- DISABLE INCLUDE CHANGELOG.adoc -->
+                <env-site>${pdf.env.site}</env-site>
+              </attributes>
+            </configuration>
+          </execution>
+          <!-- 20220224 English README.adoc -->
+          <execution>
+            <id>generate-pdf-doc</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>process-asciidoc</goal>
+            </goals>
+            <configuration>
+              <backend>pdf</backend>
+              <sourceDirectory>src/docs/asciidoc</sourceDirectory>
+              <sourceDocumentName>README.adoc</sourceDocumentName>
+              <!-- Since 1.5.0-alpha.9 PDF back-end can use 'rouge' as well as 'coderay'
+for source highlighting -->
+              <!-- Due to a known issue on windows, it is recommended to use 'coderay' until an new version of 'rouge' is released.
+see discussions: https://github.com/asciidoctor/asciidoctor-maven-examples/pull/58
+ https://github.com/asciidoctor/asciidoctorj-pdf/issues/3
+ https://github.com/jneen/rouge/issues/661
+-->
+              <attributes>
+                <imagesdir>images</imagesdir>
+                <source-highlighter>coderay</source-highlighter>
+                <icons>font</icons>
+                <pagenums/>
+                <toc/>
+                <idprefix/>
+                <idseparator>-</idseparator>
+                <!-- compress reduce pdf size -->
+                <compress>${pdf.compress}</compress>
+                <!-- DISABLE INCLUDE CHANGELOG.adoc -->
+                <env-site>${pdf.env.site}</env-site>
+              </attributes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <profiles>
+    <profile>
+      <id>pdf-default</id>
+      <properties>
+        <pdf.compress>false</pdf.compress>
+        <pdf.env.site>true</pdf.env.site>
+        <pdf.out.dir>generated-docs</pdf.out.dir>
+      </properties>
+    </profile>
+    <profile>
+      <id>pdf-compress</id>
+      <properties>
+        <pdf.compress>true</pdf.compress>
+        <pdf.env.site>true</pdf.env.site>
+        <pdf.out.dir>generated-docs-compress</pdf.out.dir>
+      </properties>
+    </profile>
+    <profile>
+      <id>pdf-include</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <pdf.compress>false</pdf.compress>
+        <pdf.env.site>false</pdf.env.site>
+        <pdf.out.dir>generated-docs-include</pdf.out.dir>
+      </properties>
+    </profile>
+    <profile>
+      <id>pdf-compress-include</id>
+      <properties>
+        <pdf.compress>true</pdf.compress>
+        <pdf.env.site>false</pdf.env.site>
+        <pdf.out.dir>generated-docs-compress-include</pdf.out.dir>
+      </properties>
+    </profile>
+  </profiles>
+</project>
