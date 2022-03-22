@@ -2,7 +2,7 @@
 life888888
 :doctype: article
 :encoding: utf-8
-:lang: zh
+:lang: en
 :toc: left
 :numbered:
 :experimental:
@@ -11,38 +11,37 @@ life888888
 :tw-example-file: README-zh_TW
 :en-example-file: README
 
-這個專案是用來產生 jpdfbookmarks 的測試基準的 PDF。
+This project is used to generate a PDF of the jpdfbookmarks testing baseline. 
 
 == System Requirement
 
 * JDK
 * Maven 3.6+
 
-== 如何產生測試基本用的 PDF
+== How to generate a baseline PDF for testing 
 
 [IMPORTANT] 
-.注意
+.IMPORTANT
 ==== 
-
-* 第一次執行時需要一點下載時間。因為需要下載所需要的字型。
-** 下載的字型會放在 使用者的 Home 之下的 `downloaded-resources`。
-** 下載的字型以及 Theme 包含 簡體中文(CN) , 繁體中文(TW) , 日文(JP) , 韓文(KR)。
-** 可以修改 asciidoctor-pdf-cjk-resources/pom.xml 把不需要的語言部分給註解掉不下載。
-* 預設會一次產出四種語言的測試 PDF(簡體中文(CN) , 繁體中文(TW) , 日文(JP) , 韓文(KR)) , 如果不需要四種語言的 PDF , 可以修改 asciidoctor-pdf-cjk-examples/pom.xml 把不需要的語言部分給註解掉不產出。
+* It takes a little download time for the first execution. Because you need to download the required fonts. 
+** Downloaded fonts are placed in `downloaded-resources` under the user's Home directory. 
+** The downloaded fonts and Theme include Simplified Chinese(CN) , Traditional Chinese(TW) , Japanese(JP) , Korean(KR).
+** You can modify asciidoctor-pdf-cjk-resources/pom.xml to annotate the unnecessary language parts and not download them. 
+* By default, test PDFs in four languages will be output at one time (Simplified Chinese (CN) , Traditional Chinese (TW) , Japanese (JP) , Korean (KR)) , if you don't need four languages PDF , you can modify asciidoctor-pdf -cjk-examples/pom.xml Annotate unneeded language parts without output.
 ====
 
-轉換 asciidoc 到 PDF 可以使用 `process-resources` goal (設定在  pom.xml 的 預設 goal):
+Converting asciidoc to PDF can use the `process-resources` goal (the default goal set in pom.xml):
 
 [source,bash]
 ----
 $ mvn
-# 或者是這個
+# or 
 $ mvn -P pdf-include
 ----
 
-* Maven Profile： pdf-include , 是設定 讓 README_XX.adoc 會去 include CHANGELOG.adoc。
+* Maven Profile: pdf-include , is set so that README_XX.adoc will go to include CHANGELOG.adoc. 
 
-產出的 PDF 檔案請參閱 <<file-list,產出檔案清單>>
+The output PDF file please refer to  <<file-list,output file list>>
 
 
 
@@ -52,9 +51,9 @@ $ mvn -P pdf-include
 $ mvn -P pdf-default
 ----
 
-* Maven Profile： pdf-default, 是設定 讓 README_XX.adoc 不會去 include CHANGELOG.adoc。
+* Maven Profile: pdf-default, is set so that README_XX.adoc will not include CHANGELOG.adoc.
 
-產出的 PDF 檔案請參閱 <<file-list,產出檔案清單>>
+The output PDF file please refer to  <<file-list,output file list>>
 
 
 
@@ -63,33 +62,33 @@ $ mvn -P pdf-default
 $ mvn -P pdf-compress
 ----
 
-* Maven Profile： pdf-compress, 是設定 產出 PDF 啟用壓縮。測試後，發現有設定壓縮選項的 PDF 檔案大小可以減少 25%。
+* Maven Profile: pdf-compress, is to set the output PDF to enable compression. After testing, it was found that the PDF file size with the set compression option can be reduced by 25%.
 
-產出的 PDF 檔案請參閱 <<file-list,產出檔案清單>>
+The output PDF file please refer to  <<file-list,output file list>>
 
 [source,bash]
 ----
 $ mvn -P pdf-compress-include
 ----
 
-* Maven Profile： pdf-compress-include, 是設定 讓 README_XX.adoc 會去 include CHANGELOG.adoc。並且 PDF 啟用壓縮。測試後，發現有設定壓縮選項的 PDF 檔案大小可以減少 25%。
+* Maven Profile: pdf-compress-include, is set so that README_XX.adoc will include CHANGELOG.adoc. And the PDF has compression enabled. After testing, it was found that the PDF file size with the set compression option can be reduced by 25%. 
 
-產出的 PDF 檔案請參閱 <<file-list,產出檔案清單>>
+The output PDF file please refer to  <<file-list,output file list>>
 
-== 差異
+== Difference 
 
-與 asciidoctor-maven-examples/asciidoctor-pdf-cjk-example 官方原版的差異:
+Differences from the official original asciidoctor-maven-examples/asciidoctor-pdf-cjk-example:
 
-* 把 下載 CJK 字型 fonts 與 themes 拆出成為 asciidoctor-pdf-cjk-resources maven module
-* 把 下載的位置改為 使用者 Home 目錄下的 downloaded-resources。
-* 避免每次執行都要不斷下載　CJK 字型 fonts 與 themes。
-* 增加　asciidoctor-pdf-cjk-examples/README.adoc 英文版本, 作為非 CJK 語系的 PDF 對照組。
-* 增加  asciidoctor-pdf-cjk-examples/README-zh_TW.adoc, 由 README-zh_CN.adoc 修改而來。
-* 修改 README-jp.adoc , README-zh_CN.adoc , README-zh_TW.adoc 關於 asciidoc INCLUDE 的部分。
-* 增加 PDF 壓縮的選項。
+* Remove downloaded CJK fonts fonts and themes into asciidoctor-pdf-cjk-resources maven module 
+* Change the download location to downloaded-resources in the user's Home directory. 
+* Avoid constantly downloading CJK fonts and themes for each execution. 
+* Added asciidoctor-pdf-cjk-examples/README.adoc English version as a PDF control for non-CJK languages.
+* Added asciidoctor-pdf-cjk-examples/README-zh_TW.adoc, modified from README-zh_CN.adoc. 
+* Modify README-jp.adoc , README-zh_CN.adoc , README-zh_TW.adoc about asciidoc INCLUDE. 
+* Added PDF compression options.
 
 [#file-list]
-== 產出檔案清單
+== Output file list
 
 [source,bash]
 ----
@@ -118,24 +117,25 @@ asciidoctor-pdf-cjk-examples/target
 
 == Maven Module
 
-把 asciidoctor-pdf-cjk-example 拆分成為:
+Split asciidoctor-pdf-cjk-example into:
 
 * asciidoctor-pdf-cjk-resources
 * asciidoctor-pdf-cjk-examples-pdf
 
-簡化 asciidoctor-pdf-cjk-example pom.xml 太龐大的問題。
+Simplify the problem that asciidoctor-pdf-cjk-example pom.xml is too large.
 
 ===  asciidoctor-pdf-cjk-resources
 
-負責下載 CJK 需要的字型 fonts , Themes
+Responsible for downloading fonts, Themes required by CJK.
 
 === asciidoctor-pdf-cjk-examples-pdf
 
-負責處理 PDF 的轉換 , 需要相依  asciidoctor-pdf-cjk-resources。
+Responsible for processing PDF conversion, need to depend on asciidoctor-pdf-cjk-resources.
 
 
-== jpdfbookmarks 測試報告
+== jpdfbookmarks test report
 
-針對 jpdfbookmarks 開啟 本專案的 pdf 的測試結果 , 整理於 
+The test results of opening the pdf of this project for jpdfbookmarks are organized in:
 
-jpdfbookmarks-test-reports_zh_TW.adoc
+* jpdfbookmarks-test-reports_zh_TW.adoc
+* jpdfbookmarks-test-reports.adoc
